@@ -1,0 +1,3 @@
+module Stendhal
+  # Your code goes here...
+end
