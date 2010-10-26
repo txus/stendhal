@@ -1,28 +1,17 @@
-Feature: runner
+Feature: Command line runner
 
-  Runner.
+  Command line runner to run spec files.
 
-  Scenario: Execute runner on a spec
+  Scenario: Runs the spec and prints docstrings
     Given a directory named "rspec_project"
     When I cd to "rspec_project"
     Given a file named "sample_spec.rb" with:
     """
-      puts "ran this spec" 
-    """
-    When I run "bundle exec stendhal sample_spec.rb"
-    Then the exit status should be 0
-    And the output should contain "ran this spec"
-
-  Scenario: Print docstrings
-    Given a directory named "rspec_project"
-    When I cd to "rspec_project"
-    Given a file named "sample_spec.rb" with:
-    """
-      Stendhal::Example.new("my docstring") do
-        puts "ran this spec" 
+      it "does something" do
+        puts "indeed"
       end
     """
     When I run "bundle exec stendhal sample_spec.rb"
     Then the exit status should be 0
-    And the output should contain "* my docstring"
-    And the output should contain "ran this spec"
+    And the output should contain "* does something"
+    And the output should contain "indeed"
