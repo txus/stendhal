@@ -5,9 +5,7 @@ A small test framework developed as a personal kata to improve my ruby.
 Currently under development, not functional at all. Below I will be posting
 whatever features are available throughout the development.
 
-#Usage
-
-## Available syntax
+##Usage
 
     # your spec file for some class - my_class_spec.rb
 
@@ -18,7 +16,7 @@ whatever features are available throughout the development.
       assert my_object.fancy
     end
 
-## Running the specs!
+###Running the specs!
 
     stendhal my_class_spec.rb
 
