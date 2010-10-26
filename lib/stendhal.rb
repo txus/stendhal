@@ -1,4 +1,3 @@
 require 'stendhal/example'
-module Stendhal
-  # Your code goes here...
-end
+
+require 'stendhal/core_ext/kernel'
