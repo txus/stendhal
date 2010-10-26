@@ -1,9 +1,8 @@
 #stendhal
 
-A small test framework inspired on RSpec, developed as a personal kata to
-improve my ruby.
+A small test framework developed as a personal kata to improve my ruby.
 
-Currently under development, not functional.
+Currently under development, not functional at all.
 
 ##Note on Patches/Pull Requests
  

@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Josep M. Bach"]
   s.email       = ["josep.m.bach@gmail.com"]
   s.homepage    = "http://rubygems.org/gems/stendhal"
-  s.summary     = %q{Stendhal is a really simple test framework, inspired on RSpec, as a personal kata.}
-  s.description = %q{Stendhal is a really simple test framework, inspired on RSpec, as a personal kata.}
+  s.summary     = %q{Stendhal is a really simple test framework.}
+  s.description = %q{Stendhal is a really simple test framework.}
 
   s.rubyforge_project = "stendhal"
   s.default_executable = "stendhal"
