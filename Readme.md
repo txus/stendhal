@@ -2,7 +2,25 @@
 
 A small test framework developed as a personal kata to improve my ruby.
 
-Currently under development, not functional at all.
+Currently under development, not functional at all. Below I will be posting
+whatever features are available throughout the development.
+
+#Usage
+
+## Available syntax
+
+    # your spec file for some class - my_class_spec.rb
+
+    it "does something" do
+      my_object = MyClass.new
+      my_object.fancy = true
+
+      assert my_object.fancy
+    end
+
+## Running the specs!
+
+    stendhal my_class_spec.rb
 
 ##Note on Patches/Pull Requests
  
