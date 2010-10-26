@@ -7,10 +7,10 @@ module Stendhal
     attr_reader :description
     attr_reader :block
 
-    def initialize(docstring,&block)
+    def initialize(docstring, options = {}, &block)
       @description = docstring
       @block = block
-      @pending = true unless block_given?
+      @pending = true if options[:pending] || !block_given?
       @@examples << self
     end
 
@@ -44,12 +44,20 @@ module Stendhal
     end
 
     def self.run_all
-      failures = 0
-      @@examples.reject{|n| n.pending?}.each do |example|
+      failures = pending = 0
+      @@examples.reject do |example|
+        if example.pending? 
+          pending += 1
+          $stdout.print "* #{example.description}\n"
+          true
+        else
+          false
+        end
+      end.each do |example|
         failures += example.run
         $stdout.print "* #{example.description}\n"
       end
-      [Example.count, failures]
+      [Example.count, failures, pending]
     end
 
     def self.destroy_all

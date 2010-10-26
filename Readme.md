@@ -16,9 +16,24 @@ whatever features are available throughout the development.
       assert my_object.fancy
     end
 
+    it "should do something but I don't know what yet"
+
+    pending "will do something else" do
+      my_object = MyClass.new
+      my_object.future_method
+    end
+
 ###Running the specs!
 
     stendhal my_class_spec.rb
+
+###And the output...
+
+    * does something
+    * should do something but I don't know what yet
+    * will do something else
+
+    3 examples, 0 failures, 2 pending
 
 ##Note on Patches/Pull Requests
  

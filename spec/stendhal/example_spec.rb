@@ -80,11 +80,11 @@ module Stendhal
           Example.run_all
         end
 
-        it "returns an array with total examples and failures" do
+        it "returns an array with total examples, failures and pendings" do
           runnable_examples
           failing_example
           pending_example
-          Example.run_all.should == [6,1]
+          Example.run_all.should == [6,1,1]
         end
       end
       describe "#count" do
