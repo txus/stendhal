@@ -12,7 +12,7 @@ Feature: runner
       end
     end
     """
-    When I run "stendhal sample_spec.rb"
+    When I run "bundle exec stendhal sample_spec.rb"
     Then the output should contain:
       """
       something
