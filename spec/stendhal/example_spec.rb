@@ -7,6 +7,8 @@ module Stendhal
       Example.destroy_all
     end
 
+    let(:example_group) { double('example group') }
+
     it "is created with a docstring and a block" do
       example = Example.new("docstring") do
         3 + 4
@@ -51,42 +53,6 @@ module Stendhal
     end
 
     describe "class methods" do
-      describe "#run_all" do
-        let(:runnable_examples) do
-          examples = []
-          4.times do
-            examples << Example.new("some example") do
-              assert true
-            end
-          end
-          examples
-        end
-
-        let(:failing_example) do
-          Example.new("failing") do
-            assert false
-          end
-        end
-
-        let(:pending_example) do
-          Example.new("pending")
-        end
-
-        it "runs all non-pending examples" do
-          runnable_examples.each {|e| e.should_receive(:run).once.and_return(0)}
-          failing_example.should_receive(:run).once.and_return(1)
-          pending_example.should_not_receive(:run)
-
-          Example.run_all
-        end
-
-        it "returns an array with total examples, failures and pendings" do
-          runnable_examples
-          failing_example
-          pending_example
-          Example.run_all.should == [6,1,1]
-        end
-      end
       describe "#count" do
         it "returns the number of examples in memory" do
           Example.new("pending")

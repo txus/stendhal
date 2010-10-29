@@ -43,29 +43,16 @@ module Stendhal
       @@examples.delete self
     end
 
-    def self.run_all
-      failures = pending = 0
-      @@examples.reject do |example|
-        if example.pending? 
-          pending += 1
-          $stdout.print "* #{example.description}\n"
-          true
-        else
-          false
-        end
-      end.each do |example|
-        failures += example.run
-        $stdout.print "* #{example.description}\n"
+    class << self
+
+      def destroy_all
+        @@examples = []
       end
-      [Example.count, failures, pending]
-    end
 
-    def self.destroy_all
-      @@examples = []
-    end
+      def count
+        @@examples.count
+      end
 
-    def self.count
-      @@examples.count
     end
 
   end
