@@ -2,25 +2,38 @@
 
 A small test framework developed as a personal kata to improve my ruby.
 
-Currently under development, not functional at all. Below I will be posting
-whatever features are available throughout the development.
+Currently under development, there is only basic functionality for now.
+Below I will be posting whatever features are available throughout the
+development.
+
+##Installation
+
+    gem install stendhal
 
 ##Usage
 
     # your spec file for some class - my_class_spec.rb
 
-    it "does something" do
-      my_object = MyClass.new
-      my_object.fancy = true
+    describe "My fancy class" do
 
-      assert my_object.fancy
-    end
+      it "does something" do
+        my_object = MyClass.new
+        my_object.fancy = true
 
-    it "should do something but I don't know what yet"
+        assert my_object.fancy
+      end
 
-    pending "will do something else" do
-      my_object = MyClass.new
-      my_object.future_method
+      describe "Additional functionality" do
+
+        it "should do something but I don't know what yet"
+
+        pending "will do something else" do
+          my_object = MyClass.new
+          my_object.future_method
+        end
+
+      end
+
     end
 
 ###Running the specs!
@@ -29,7 +42,10 @@ whatever features are available throughout the development.
 
 ###And the output...
 
+    My fancy class
     * does something
+
+    Additional functionality
     * should do something but I don't know what yet
     * will do something else
 

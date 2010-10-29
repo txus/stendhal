@@ -45,6 +45,7 @@ module Stendhal
       def run_all
         result = [0,0,0]
         @@example_groups.each do |g|
+          puts "\n"
           puts g.description
           group_result = g.run
           result = result.zip(group_result).map{ |pair| pair[0] + pair[1] }
