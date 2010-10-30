@@ -1,5 +1,6 @@
 module Stendhal
   module DSL
+
     module Example
       def it(*args,&blk)
         self.add_example Stendhal::Example.new(*args,&blk)
@@ -14,6 +15,7 @@ module Stendhal
         self.add_example Stendhal::Example.new(*args,options,&blk)
       end
     end
+
   end
 end
 

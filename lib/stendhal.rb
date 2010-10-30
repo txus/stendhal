@@ -1,4 +1,6 @@
-require 'stendhal/assertions'
+require 'stendhal/exceptions'
+require 'stendhal/expectations'
+require 'stendhal/matchers'
 require 'stendhal/example'
 require 'stendhal/example_group'
 

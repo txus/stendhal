@@ -1,6 +1,6 @@
 module Stendhal
   class Example
-    include Assertions
+    include Matchers
 
     @@examples = []
 

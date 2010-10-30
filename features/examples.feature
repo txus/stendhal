@@ -1,10 +1,10 @@
 Feature: Examples and example groups
 
-  Spec-ish Domain Specific Language
+  RSpec-ish Domain Specific Language
 
   Scenario: declare an example
-    Given a directory named "rspec_project"
-    When I cd to "rspec_project"
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
     Given a file named "sample_spec.rb" with:
     """
       describe "something" do
@@ -18,8 +18,8 @@ Feature: Examples and example groups
     And the output should contain "1 example, 0 failures"
 
   Scenario: declare a failing example
-    Given a directory named "rspec_project"
-    When I cd to "rspec_project"
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
     Given a file named "sample_spec.rb" with:
     """
       describe "something" do
@@ -34,8 +34,8 @@ Feature: Examples and example groups
     And the output should contain "1 example, 1 failure"
 
   Scenario: declare a pending example
-    Given a directory named "rspec_project"
-    When I cd to "rspec_project"
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
     Given a file named "sample_spec.rb" with:
     """
       describe "something" do
@@ -50,8 +50,8 @@ Feature: Examples and example groups
     And the output should contain "1 example, 0 failures, 1 pending"
 
   Scenario: declare an example in nested groups
-    Given a directory named "rspec_project"
-    When I cd to "rspec_project"
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
     Given a file named "sample_spec.rb" with:
     """
       describe "something" do
@@ -70,8 +70,8 @@ Feature: Examples and example groups
     And the output should contain "1 example, 0 failures"
 
   Scenario: many examples in different example groups
-    Given a directory named "rspec_project"
-    When I cd to "rspec_project"
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
     Given a file named "sample_spec.rb" with:
     """
       describe "something" do

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    stendhal (0.0.1)
+    stendhal (0.1.0)
 
 GEM
   remote: http://rubygems.org/
