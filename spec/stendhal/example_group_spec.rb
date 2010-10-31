@@ -38,13 +38,13 @@ module Stendhal
         @group = ExampleGroup.new("group")
         4.times do
           example = Example.new("some example") do
-            assert true
+            true
           end
           @runnable_examples << example
           @group.add_example example
         end
         @failing_example = Example.new("failing") do
-          assert false
+          fail "this example fails just because"
         end
         @group.add_example @failing_example
         @pending_example = Example.new("pending")

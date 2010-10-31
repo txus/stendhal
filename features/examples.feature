@@ -9,7 +9,7 @@ Feature: Examples and example groups
     """
       describe "something" do
         it "does something" do
-          assert true
+          # put your code here 
         end
       end
     """
@@ -24,13 +24,14 @@ Feature: Examples and example groups
     """
       describe "something" do
         it "does something" do
-          assert false
+          fail "this is not what I expected"
         end
       end
     """
     When I run "stendhal sample_spec.rb"
     Then the exit status should be 0
-    And the output should contain "* does something"
+    And the output should contain "* does something [FAILED]"
+    And the output should contain "this is not what I expected"
     And the output should contain "1 example, 1 failure"
 
   Scenario: declare a pending example
@@ -40,7 +41,7 @@ Feature: Examples and example groups
     """
       describe "something" do
         pending "does something" do
-          assert false
+          fail "this is not what I expected"
         end
       end
     """
@@ -57,7 +58,7 @@ Feature: Examples and example groups
       describe "something" do
         describe "inside another thing" do
           it "does this" do
-            assert true
+            # put your code here
           end
         end
       end
@@ -77,15 +78,15 @@ Feature: Examples and example groups
       describe "something" do
         describe "inside another thing" do
           it "does this" do
-            assert true
+            # put your code here
           end
         end
         describe "pending" do
           pending "todo" do
-            assert false
+            # put your code here
           end
           it "fails" do
-            assert false
+            fail "indeed"
           end
         end
       end
@@ -97,5 +98,6 @@ Feature: Examples and example groups
     And the output should contain "* does this"
     And the output should contain "pending"
     And the output should contain "* todo"
-    And the output should contain "* fails"
+    And the output should contain "* fails [FAILED]"
+    And the output should contain "indeed"
     And the output should contain "3 examples, 1 failure, 1 pending"

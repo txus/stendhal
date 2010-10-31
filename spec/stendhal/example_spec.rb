@@ -32,13 +32,14 @@ module Stendhal
         example.run
       end
 
-      it "captures failed assertions" do
+      it "captures unmet expectations" do
         example = Example.new("docstring") do
-          assert false
+          raise Stendhal::Exceptions::ExpectationNotMet.new("expected this example to be awesome")
         end
         expect {example.run}.to_not raise_error
         example.run
         example.should be_failed
+        example.failed_message.should == "expected this example to be awesome"
       end
 
       it "captures exceptions" do
@@ -50,6 +51,17 @@ module Stendhal
         example.should be_aborted
       end
 
+    end
+
+    describe "#fail" do
+      it 'fails with a given message' do
+        example = Example.new("docstring") do
+          fail "expectation not awesome enough"
+        end
+        example.run
+        example.should be_failed
+        example.failed_message.should == "expectation not awesome enough"
+      end
     end
 
     describe "class methods" do

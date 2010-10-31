@@ -6,6 +6,7 @@ module Stendhal
 
     attr_reader :description
     attr_reader :block
+    attr_reader :failed_message
 
     def initialize(docstring, options = {}, &block)
       @description = docstring
@@ -18,8 +19,9 @@ module Stendhal
       begin
         self.instance_eval(&@block)
         return 0
-      rescue AssertionFailed=>e
+      rescue Exceptions::ExpectationNotMet=>e
         @failed = true
+        @failed_message = e.message
         return 1
       rescue StandardError=>e
         @aborted = true
@@ -41,6 +43,10 @@ module Stendhal
 
     def destroy
       @@examples.delete self
+    end
+
+    def fail(message = 'failed')
+      raise Stendhal::Exceptions::ExpectationNotMet.new(message)
     end
 
     class << self

@@ -26,7 +26,8 @@ module Stendhal
         end
       end.each do |example|
         failures += example.run
-        $stdout.print "* #{example.description}\n"
+        $stdout.print "* #{example.description}#{' [FAILED]' if example.failed?}\n"
+        $stdout.print "\t#{example.failed_message}\n"
       end
       [examples.count, failures, pending]
     end
