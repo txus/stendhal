@@ -6,24 +6,50 @@ Currently under development, there is only basic functionality for now.
 Below I will be posting whatever features are available throughout the
 development.
 
+##Current features
+
+* Nested example groups
+* Pending examples
+* Lame reporter (but will get better eventually)
+* Matchers (use with object.must or object.must_not)
+    eq() / eql()
+    be_a() / be_kind_of() / be_a_kind_of()
+    be_whatever # asks object.whatever?
+
+
 ##Installation
 
     gem install stendhal
 
 ##Usage
 
-    # your spec file for some class - my_class_spec.rb
+    # your spec file for some class - foo_spec.rb
 
-    describe "My fancy class" do
+    describe "Foo" do
 
       it "does something" do
         my_object = MyClass.new
-        my_object.fancy = true
-
-        assert my_object.fancy
+        my_object.must be_a(MyClass) 
       end
 
-      describe "Additional functionality" do
+      
+      it "fails when 7 is not 9" do
+        (3 + 4).must eq(9)
+      end
+
+      it "asks for a kind of object" do
+        "string".must be_a(String)
+      end
+
+      it "asks things to objects" do
+        "string".must be_frozen
+      end
+
+      it "has common sense" do
+        "string".must_not eq(3)
+      end
+
+      describe "Pending examples" do
 
         it "should do something but I don't know what yet"
 
@@ -38,18 +64,24 @@ development.
 
 ###Running the specs!
 
-    stendhal my_class_spec.rb
+    stendhal foo_spec.rb
 
 ###And the output...
 
-    My fancy class
+    Foo
     * does something
+    * fails when 7 is not 9 [FAILED]
+            expected 7 to equal 9
+    * asks for a kind of object
+    * asks things to objects [FAILED]
+            expected "string" to be frozen
+    * has common sense
 
-    Additional functionality
+    Pending examples
     * should do something but I don't know what yet
     * will do something else
 
-    3 examples, 0 failures, 2 pending
+    7 examples, 2 failures, 2 pending
 
 ##Note on Patches/Pull Requests
  
