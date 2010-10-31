@@ -12,8 +12,11 @@ development.
 * Pending examples
 * Lame reporter (but will get better eventually)
 * Matchers (use with object.must or object.must_not)
+
     eq() / eql()
+
     be_a() / be_kind_of() / be_a_kind_of()
+
     be_whatever # asks object.whatever?
 
 
