@@ -10,10 +10,6 @@ module Stendhal
     end
     alias_method :eql, :eq
 
-    def caca(other)
-      Equality.new(other)
-    end
-
     def be_a(kind)
       Kind.new(kind)
     end
