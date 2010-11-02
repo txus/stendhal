@@ -1,12 +1,14 @@
 module Stendhal
   class Example
     include Matchers
+    include Mocks
 
     @@examples = []
 
     attr_reader :description
     attr_reader :block
     attr_reader :failed_message
+    attr_reader :aborted_message
 
     def initialize(docstring, options = {}, &block)
       @description = docstring
@@ -25,6 +27,7 @@ module Stendhal
         return 1
       rescue StandardError=>e
         @aborted = true
+        @aborted_message = e.message
         return 1
       end
     end

@@ -10,6 +10,10 @@ module Stendhal
     end
     alias_method :eql, :eq
 
+    def caca(other)
+      Equality.new(other)
+    end
+
     def be_a(kind)
       Kind.new(kind)
     end
@@ -19,6 +23,8 @@ module Stendhal
     def method_missing(m,*args)
       if m.to_s =~ /be_(\w+)/
         Predicate.new(($1 + '?').to_sym)
+      else
+        super(m,*args)
       end
     end
   end

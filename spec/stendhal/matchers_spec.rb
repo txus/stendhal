@@ -9,10 +9,11 @@ module Stendhal
   
     let(:object) { MyClass.new }
      
-    describe "#==" do
+    describe "#eql / #eq" do
       it 'creates a new equality expectation' do
-        Matchers::Equality.should_receive(:new).with(7)
-        object == 7
+        Matchers::Equality.should_receive(:new).with(7).twice
+        object.eq(7)
+        object.eql(7)
       end
     end
 

@@ -19,15 +19,18 @@ module Stendhal
       examples.reject do |example|
         if example.pending? 
           pending += 1
-          $stdout.print "* #{example.description}\n"
+          $stdout.print "* #{example.description} [PENDING]\n"
           true
         else
           false
         end
       end.each do |example|
         failures += example.run
-        $stdout.print "* #{example.description}#{' [FAILED]' if example.failed?}\n"
-        $stdout.print "\t#{example.failed_message}\n"
+        status = " [FAILED]" if example.failed?
+        status = " [ABORTED]" if example.aborted?
+        $stdout.print "* #{example.description}#{status || ''}\n"
+        $stdout.print "\t#{example.failed_message}\n" if example.failed?
+        $stdout.print "\t#{example.aborted_message}\n" if example.aborted?
       end
       [examples.count, failures, pending]
     end

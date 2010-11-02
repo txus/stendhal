@@ -8,6 +8,7 @@ development.
 
 ##Current features
 
+* Test doubles and stubs (no partial stubbing yet)
 * Nested example groups
 * Pending examples
 * Lame reporter (but will get better eventually)
@@ -63,6 +64,21 @@ development.
 
       end
 
+      describe "Test double" do
+        it "is declared with fake" do
+          my_logger = fake('logger')
+        end
+
+        it "is declared with double as well" do
+          my_logger = double('logger')
+        end
+
+        it "can be given stubs" do
+          my_logger = double('logger', :my_method => 6)
+          my_logger.my_method.must eq(6)
+        end
+      end
+
     end
 
 ###Running the specs!
@@ -84,7 +100,12 @@ development.
     * should do something but I don't know what yet
     * will do something else
 
-    7 examples, 2 failures, 2 pending
+    Test double
+    * is declared with fake
+    * is declared with double as well
+    * can be given stubs
+
+    10 examples, 2 failures, 2 pending
 
 ##Note on Patches/Pull Requests
  

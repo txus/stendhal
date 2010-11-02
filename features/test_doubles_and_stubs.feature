@@ -14,7 +14,13 @@ Feature: Test doubles and stubs
       end
 
       describe "something" do
-        it "does something" do
+        it "declares test doubles with :fake helper" do
+          logger = fake('logger')
+          object = MyClass.new(logger)
+
+          object.must be_a(MyClass)
+        end
+        it "declares test doubles with :double helper as well" do
           logger = double('logger')
           object = MyClass.new(logger)
 
@@ -24,7 +30,7 @@ Feature: Test doubles and stubs
     """
     When I run "stendhal sample_spec.rb"
     Then the exit status should be 0
-    And the output should contain "1 example, 0 failures"
+    And the output should contain "2 examples, 0 failures"
 
   Scenario: declare a test double with stubs
     Given a directory named "stendhal_project"
@@ -36,7 +42,7 @@ Feature: Test doubles and stubs
           @logger = logger
         end
         def do_something
-          @logger.log "Doing something"
+          @logger.log "Logger"
           if @logger.print
             return "result"
           end
@@ -45,39 +51,10 @@ Feature: Test doubles and stubs
 
       describe "something" do
         it "does something" do
-          logger = double('logger', :log => nil, :print => true)
+          logger = fake('logger', :log => nil, :print => true)
           object = MyClass.new(logger)
 
-          object.do_something.must == "result"
-        end
-      end
-    """
-    When I run "stendhal sample_spec.rb"
-    Then the exit status should be 0
-    And the output should contain "1 example, 0 failures"
-
-  Scenario: partial stubbing
-    Given a directory named "stendhal_project"
-    When I cd to "stendhal_project"
-    Given a file named "sample_spec.rb" with:
-    """
-      class Boss
-        def do_something
-          seem_busy
-          delegate_stuff
-        end
-        def delegate_stuff
-          nil  
-        end
-      end
-
-      describe "my boss" do
-        it "does something" do
-          boss = Boss.new
-          boss.stub(:seem_busy)
-          boss.stub(:delegate_stuff).and_return(:done)
-
-          boss.do_something.should eq(:done)
+          object.do_something.must eq("result")
         end
       end
     """

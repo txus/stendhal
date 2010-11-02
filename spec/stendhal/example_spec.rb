@@ -51,6 +51,15 @@ module Stendhal
         example.should be_aborted
       end
 
+      it "captures everything else" do
+        example = Example.new("docstring") do
+          hello my dear reader
+        end
+        expect {example.run}.to_not raise_error
+        example.run
+        example.should be_aborted
+      end
+
     end
 
     describe "#fail" do
