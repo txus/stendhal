@@ -8,8 +8,9 @@ development.
 
 ##Current features
 
+* Pretty decent reporter with colors
 * Test doubles and stubs (no partial stubbing yet)
-* Nested example groups
+* Nested example groups (declare them with either describe or context)
 * Pending examples
 * Lame reporter (but will get better eventually)
 * Matchers (use with object.must or object.must_not)
@@ -62,6 +63,12 @@ development.
           my_object.future_method
         end
 
+        context "under some unknown circumstances" do
+          it "may act differently" do
+            MyClass.must be_a(Class)
+          end
+        end
+
       end
 
       describe "Test double" do
@@ -85,27 +92,29 @@ development.
 
     stendhal foo_spec.rb
 
-###And the output...
+###And the nice colored output...
 
     Foo
-    * does something
-    * fails when 7 is not 9 [FAILED]
-            expected 7 to equal 9
-    * asks for a kind of object
-    * asks things to objects [FAILED]
-            expected "string" to be frozen
-    * has common sense
+      * does something
+      * fails when 7 is not 9 [FAILED]
+        expected 7 to equal 9
+      * asks for a kind of object
+      * asks things to objects [FAILED]
+        expected "string" to be frozen
+      * has common sense
 
     Pending examples
-    * should do something but I don't know what yet
-    * will do something else
+      * should do something but I don't know what yet
+      * will do something else
+      under some unknown circumstances
+        * may act differently
 
     Test double
-    * is declared with fake
-    * is declared with double as well
-    * can be given stubs
+      * is declared with fake
+      * is declared with double as well
+      * can be given stubs
 
-    10 examples, 2 failures, 2 pending
+    11 examples, 2 failures, 2 pending
 
 ##Note on Patches/Pull Requests
  
