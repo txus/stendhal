@@ -19,18 +19,20 @@ module Stendhal
       examples.reject do |example|
         if example.pending? 
           pending += 1
-          $stdout.print "* #{example.description} [PENDING]\n"
+          Reporter.line "* #{example.description} [PENDING]", :indent => Reporter.current_indentation + 1, :color => :yellow
           true
         else
           false
         end
       end.each do |example|
         failures += example.run
+        color = :red
+        color = :green unless example.failed? || example.aborted?
         status = " [FAILED]" if example.failed?
         status = " [ABORTED]" if example.aborted?
-        $stdout.print "* #{example.description}#{status || ''}\n"
-        $stdout.print "\t#{example.failed_message}\n" if example.failed?
-        $stdout.print "\t#{example.aborted_message}\n" if example.aborted?
+        Reporter.line "* #{example.description}#{status || ''}", :indent => Reporter.current_indentation + 1, :color => color
+        Reporter.line "#{example.failed_message}", :indent => Reporter.current_indentation + 2, :color => :red if example.failed?
+        Reporter.line "#{example.aborted_message}", :indent => Reporter.current_indentation + 2, :color => :red if example.aborted?
       end
       [examples.count, failures, pending]
     end
@@ -49,8 +51,8 @@ module Stendhal
       def run_all
         result = [0,0,0]
         @@example_groups.each do |g|
-          puts "\n"
-          puts g.description
+          Reporter.whitespace
+          Reporter.line g.description, :indent => Reporter.current_indentation, :color => :white
           group_result = g.run
           result = result.zip(group_result).map{ |pair| pair[0] + pair[1] }
         end

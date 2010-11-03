@@ -1,3 +1,4 @@
+require 'stendhal/reporter'
 require 'stendhal/exceptions'
 require 'stendhal/matchers'
 require 'stendhal/mocks'
