@@ -12,7 +12,6 @@ development.
 * Test doubles and stubs (no partial stubbing yet)
 * Nested example groups (declare them with either describe or context)
 * Pending examples
-* Lame reporter (but will get better eventually)
 * Matchers (use with object.must or object.must_not)
 
     eq() / eql()
@@ -115,6 +114,13 @@ development.
       * can be given stubs
 
     11 examples, 2 failures, 2 pending
+
+##Feedback
+
+Reporting issues, asking for new features and constructive criticizing can be
+done either through Github issues, the mailing list
+(http://librelist.com/browser/stendhal/) or you can always reach me on twitter
+(I am @txustice). Don't hesitate to tell me anything! :)
 
 ##Note on Patches/Pull Requests
  
