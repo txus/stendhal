@@ -30,7 +30,7 @@ module Stendhal
         context "with indentation" do
           it 'outputs an indented line' do
             Reporter.line "This is a line", :indent => 2
-            out.string.should include("\t\tThis is a line\n")
+            out.string.should include("  This is a line\n")
           end
         end
 
@@ -53,7 +53,7 @@ module Stendhal
       describe "#tab" do
         it 'outputs a tab' do
           Reporter.tab
-          out.string.should match(/\t/)
+          out.string.should include("  ")
         end
       end
 

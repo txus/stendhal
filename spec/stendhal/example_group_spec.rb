@@ -49,6 +49,7 @@ module Stendhal
         @group.add_example @failing_example
         @pending_example = Example.new("pending")
         @group.add_example @pending_example
+        @group.add_example_group("another group")
       end
 
       it "runs all non-pending examples" do
@@ -59,10 +60,25 @@ module Stendhal
         @group.run
       end
 
+      it "runs all its children" do
+        @group.example_groups.each do |g|
+          g.should_receive(:run)
+        end
+        @group.run
+      end
+
       it "returns an array with total examples, failures and pendings" do
         @group.run.should == [6,1,1]
       end
     end    
+
+    describe "#add_example_group" do
+      it "adds a nested example group inside self" do
+        example_group = ExampleGroup.new("group")
+        example_group.add_example_group(ExampleGroup.new("other group"))
+        example_group.example_groups.first.should have_parent
+      end
+    end
 
     describe "class methods" do
       describe "#count" do

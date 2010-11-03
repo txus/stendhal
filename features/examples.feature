@@ -80,6 +80,11 @@ Feature: Examples and example groups
           it "does this" do
             # put your code here
           end
+          context "under certain circumstances" do
+            it "does that" do
+              # put your code here
+            end
+          end
         end
         describe "pending" do
           pending "todo" do
@@ -96,8 +101,10 @@ Feature: Examples and example groups
     And the output should contain "something"
     And the output should contain "inside another thing"
     And the output should contain "* does this"
+    And the output should contain "under certain circumstances"
+    And the output should contain "* does that"
     And the output should contain "pending"
     And the output should contain "* todo"
     And the output should contain "* fails [FAILED]"
     And the output should contain "indeed"
-    And the output should contain "3 examples, 1 failure, 1 pending"
+    And the output should contain "4 examples, 1 failure, 1 pending"

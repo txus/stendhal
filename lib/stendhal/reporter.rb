@@ -47,7 +47,7 @@ module Stendhal
     end
 
     def tab
-      @output.print "\t"
+      @output.print "  "
     end
 
     # Delegate all methods to instance
