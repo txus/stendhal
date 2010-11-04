@@ -1,4 +1,5 @@
 require 'stendhal/mocks/test_double'
+require 'stendhal/mocks/spyable'
 
 module Stendhal
   module Mocks
