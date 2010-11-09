@@ -132,7 +132,7 @@ development.
 
     Message expectation
       * is declared with expects
-      * is declared with does_not_expect in case it is negative
+      * is declared with does_not_expect in case it is negative [FAILED]
 
     13 examples, 3 failures, 2 pending
 
