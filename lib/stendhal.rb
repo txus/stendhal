@@ -6,4 +6,5 @@ require 'stendhal/example'
 require 'stendhal/example_group'
 
 require 'stendhal/core_ext/kernel'
+require 'stendhal/core_ext/object'
 require 'stendhal/dsl'

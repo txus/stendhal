@@ -60,6 +60,26 @@ module Stendhal
         example.should be_aborted
       end
 
+      it "verifies all message expectations after running the block" do
+        example = Example.new("docstring") do
+          
+        end
+        example.should_receive(:instance_eval).ordered
+        Stendhal::Mocks::MockVerifier.should_receive(:verify!).ordered
+
+        example.run
+      end
+
+      it "resets all message expectations before running the block" do
+        example = Example.new("docstring") do
+          
+        end
+        Stendhal::Mocks::MockVerifier.should_receive(:reset!)
+        example.should_receive(:instance_eval).ordered
+
+        example.run
+      end
+
     end
 
     describe "#fail" do

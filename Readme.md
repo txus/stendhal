@@ -10,6 +10,7 @@ development.
 
 * Pretty decent reporter with colors
 * Test doubles and stubs (no partial stubbing yet)
+* Mocks (message expectations)
 * Nested example groups (declare them with either describe or context)
 * Pending examples
 * Matchers (use with object.must or object.must_not)
@@ -85,6 +86,22 @@ development.
         end
       end
 
+      describe "Message expectation" do
+        it "is declared with expects" do
+          string = "my string"
+          string.expects(:reverse)
+
+          string.reverse # Expectation fulfilled!
+        end
+
+        it "is declared with does_not_expect in case it is negative" do
+          string = "my string"
+          string.does_not_expect(:reverse)
+
+          string.reverse # Fails!
+        end
+      end
+
     end
 
 ###Running the specs!
@@ -113,7 +130,11 @@ development.
       * is declared with double as well
       * can be given stubs
 
-    11 examples, 2 failures, 2 pending
+    Message expectation
+      * is declared with expects
+      * is declared with does_not_expect in case it is negative
+
+    13 examples, 3 failures, 2 pending
 
 ##Feedback
 

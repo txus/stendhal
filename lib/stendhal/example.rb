@@ -19,7 +19,9 @@ module Stendhal
 
     def run
       begin
+        Stendhal::Mocks::MockVerifier.reset!
         self.instance_eval(&@block)
+        Stendhal::Mocks::MockVerifier.verify!
         return 0
       rescue Exceptions::ExpectationNotMet=>e
         @failed = true
