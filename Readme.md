@@ -12,7 +12,7 @@ development.
 
 * Pretty decent reporter with colors
 * Test doubles and stubs (no partial stubbing yet)
-* Mocks (message expectations)
+* Mocks (message expectations) with _optionally_ stubbable return values
 * Nested example groups (declare them with either describe or context)
 * Pending examples
 * Matchers (use with object.must or object.must_not)
@@ -96,6 +96,31 @@ development.
           string.reverse # Expectation fulfilled!
         end
 
+        it "can be told the number of times it is expected" do
+          string = "my string"
+          string.expects(:reverse).once # or
+          string.expects(:reverse).twice # or
+          string.expects(:reverse).exactly(3).times
+
+          string.reverse # Fails!
+        end
+
+        it "can return a stubbed value" do
+          string = "my string"
+          string.expects(:reverse).and_returns 'stubbed value'
+
+          string.reverse # => "stubbed value"
+        end
+
+        it "can return a stubbed proc" do
+          string = "my string"
+          string.expects(:reverse).and_returns do
+            3 + 4
+          end
+
+          string.reverse # => 7
+        end
+
         it "is declared with does_not_expect in case it is negative" do
           string = "my string"
           string.does_not_expect(:reverse)
@@ -134,9 +159,12 @@ development.
 
     Message expectation
       * is declared with expects
+      * can be told the number of times it is expected [FAILED]
+      * can return a stubbed value
+      * can return a stubbed proc
       * is declared with does_not_expect in case it is negative [FAILED]
 
-    13 examples, 3 failures, 2 pending
+    16 examples, 4 failures, 2 pending
 
 ##Feedback
 

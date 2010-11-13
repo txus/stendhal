@@ -23,22 +23,40 @@ EOT
       end
 
       def once
+        raise "This object has no mocks." unless @__verifier
         __verifier.expectation_for(__verifier.last_mocked_method).times_expected = 1
         self
       end
 
       def twice
+        raise "This object has no mocks." unless @__verifier
         __verifier.expectation_for(__verifier.last_mocked_method).times_expected = 2
         self
       end
 
       def exactly(times)
+        raise "This object has no mocks." unless @__verifier
         __verifier.expectation_for(__verifier.last_mocked_method).times_expected = times
         self
       end
 
       def times
+        raise "This object has no mocks." unless @__verifier
         self
+      end
+
+      def and_returns(retval = nil, &block)
+        raise "This object has no mocks." unless @__verifier
+        method = __verifier.last_mocked_method
+        str = retval.to_s
+        unless respond_to?(:"__unstubbed_#{method}")
+          metaclass = (class << self;self;end)
+          metaclass.send(:alias_method, :"__unstubbed_#{method}", :"__original_#{method}")
+          metaclass.send(:undef_method, :"__original_#{method}")
+
+          return_value = block || Proc.new { retval }
+          metaclass.send(:define_method, :"__original_#{method}", return_value)
+        end
       end
 
       def does_not_expect(method)

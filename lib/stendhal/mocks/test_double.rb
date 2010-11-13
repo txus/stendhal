@@ -15,7 +15,6 @@ module Stendhal
             v 
           end
         end
-
       end
 
     end

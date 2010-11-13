@@ -71,7 +71,6 @@ module Stendhal
         end
 
         def register_call
-          puts "#{@times_called}"
           @times_called += 1
         end
 

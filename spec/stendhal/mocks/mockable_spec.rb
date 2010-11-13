@@ -65,6 +65,11 @@ module Stendhal
               subject.send(:__verifier).stub(:last_mocked_method).and_return :length
               subject.expects(:length).send(name).should be_a(MyArray)
             end
+            it 'raises an error if called without a previous mock' do
+              expect {
+                subject.send(name)
+              }.to raise_error("This object has no mocks.")
+            end
           end
 
         end
@@ -82,14 +87,42 @@ module Stendhal
             subject.send(:__verifier).stub(:last_mocked_method).and_return :length
             subject.expects(:length).twice.should be_a(MyArray)
           end
+          it 'raises an error if called without a previous mock' do
+            expect {
+              subject.exactly(2)
+            }.to raise_error("This object has no mocks.")
+          end
         end
 
         describe "#times" do
           it 'returns itself to allow chaining' do
             subject.expects(:length).times.should be_a(MyArray)
           end
+          it 'raises an error if called without a previous mock' do
+            expect {
+              subject.times
+            }.to raise_error("This object has no mocks.")
+          end
         end
 
+      end
+
+      describe "#and_returns" do
+        it 'stubs the return value' do
+          subject.expects(:length).and_returns 5
+          subject.length.should == 5
+        end
+        it 'accepts a block as the return value' do
+          subject.expects(:length).and_returns do
+            3 + 4
+          end
+          subject.length.should == 7
+        end
+        it 'saves the unstubbed method' do
+          subject.expects(:length).and_returns(:foo)
+          subject.should respond_to(:__unstubbed_length)
+          subject.send(:__unstubbed_length).should == 3
+        end
       end
     end
   end

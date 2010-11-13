@@ -40,7 +40,7 @@ Feature: Mocks (message expectations)
       end
     """
     When I run "stendhal sample_spec.rb"
-    # Then the exit status should be 0
+    Then the exit status should be 0
     And the output should contain "3 examples, 1 failure"
     And the output should contain "expected to be sent :foo 1 time, but received it 0 times"
 
@@ -140,7 +140,7 @@ Feature: Mocks (message expectations)
         end
         it "calls foo three times" do
           object = MyClass.new
-          object.expects(:foo).exactly(3).times.and_return('stubbed foo')
+          object.expects(:foo).exactly(3).times.and_returns('stubbed foo')
 
           3.times { object.bar.must eq('stubbed foo') } 
         end
