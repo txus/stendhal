@@ -5,15 +5,23 @@ module Stendhal
       @@verifiers = []
 
       attr_reader :expectations
+      attr_reader :last_mocked_method
+      attr_reader :object
 
       def initialize(object)
         @expectations = []
         @object = object
+        @last_mocked_method = nil
         @@verifiers << self
       end
 
+      def expectation_for(method)
+        @expectations.detect {|e| e.method == method }
+      end
+
       def add_expectation(method, options = {})
-        @expectations.detect {|e| e.method == method }.tap do |expectation|
+        @last_mocked_method = method
+        expectation_for(method).tap do |expectation|
           expectation and begin
             options[:negative] ? expectation.times_expected = 0 :
                                  expectation.times_expected += 1

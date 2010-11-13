@@ -42,19 +42,55 @@ module Stendhal
             subject.expects(:length) 
           end
         end
-      end
-
-      describe "#once" do
-        it 'creates a verifier' do
-          subject.expects(:length) 
-          subject.send(:__verifier).should be_a(MockVerifier)
-        end
-        it 'creates a message expectation on the given method' do
-          subject.expects(:length) 
-          subject.send(:__verifier).expectations.map(&:method).should include(:length)
+        it 'returns itself to allow chaining' do
+          subject.expects(:length).should be_a(MyArray)
         end
       end
 
+      describe "times a method is expected to be received" do
+
+        {:once => 1,
+         :twice => 2}.each do |name,times|
+
+          describe "##{times}" do
+            it 'sets the times expected for the mocked method to one' do
+              expectation = double('expectation', :times_expected => 7)
+              subject.send(:__verifier).should_receive(:last_mocked_method).and_return :length
+              subject.send(:__verifier).should_receive(:expectation_for).with(:length).and_return expectation
+              expectation.should_receive(:times_expected=).with(times)
+
+              subject.send(name)
+            end
+            it 'returns itself to allow chaining' do
+              subject.send(:__verifier).stub(:last_mocked_method).and_return :length
+              subject.expects(:length).send(name).should be_a(MyArray)
+            end
+          end
+
+        end
+
+        describe "#exactly(number_of_times)" do
+          it 'sets the times expected for the mocked method to the given number' do
+            expectation = double('expectation', :times_expected => 7)
+            subject.send(:__verifier).should_receive(:last_mocked_method).and_return :length
+            subject.send(:__verifier).should_receive(:expectation_for).with(:length).and_return expectation
+            expectation.should_receive(:times_expected=).with(3)
+
+            subject.exactly(3)
+          end
+          it 'returns itself to allow chaining' do
+            subject.send(:__verifier).stub(:last_mocked_method).and_return :length
+            subject.expects(:length).twice.should be_a(MyArray)
+          end
+        end
+
+        describe "#times" do
+          it 'returns itself to allow chaining' do
+            subject.expects(:length).times.should be_a(MyArray)
+          end
+        end
+
+      end
     end
   end
 end

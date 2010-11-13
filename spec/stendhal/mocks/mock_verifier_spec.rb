@@ -12,12 +12,26 @@ module Stendhal
       end
 
       describe "instance methods" do
-      
+
+        describe "#expectation_for(method)" do
+          it 'returns the expectation for a given method' do
+            subject.add_expectation(:length)
+            subject.add_expectation(:class)
+
+            subject.expectation_for(:length).should be_a(MockVerifier::MessageExpectation)
+            subject.expectation_for(:length).method.should == :length
+          end
+        end
+
         describe "#add_expectation" do
           it 'adds an expectation for a given method' do
             MockVerifier::MessageExpectation.should_receive(:new).with(:reverse, {})
 
             subject.add_expectation(:reverse)
+          end
+          it 'remembers last mocked method' do
+            subject.add_expectation(:reverse)
+            subject.last_mocked_method.should == :reverse
           end
           context "if an expectation for such method already exists" do
             it 'adds an expected call to that expectation' do

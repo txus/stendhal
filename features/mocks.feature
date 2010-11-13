@@ -100,6 +100,7 @@ Feature: Mocks (message expectations)
           object.expects(:foo).twice
 
           object.bar
+          object.bar
         end
         it "calls foo three times" do
           object = MyClass.new
@@ -107,24 +108,11 @@ Feature: Mocks (message expectations)
 
           3.times { object.bar } 
         end
-        it "calls foo at least two times" do
-          object = MyClass.new
-          object.expects(:foo).at_least(2).times
-
-          3.times { object.bar } 
-        end
-        it "calls foo at most two times" do
-          object = MyClass.new
-          object.expects(:foo).at_most(2).times
-
-          3.times { object.bar } 
-        end
       end
     """
     When I run "stendhal sample_spec.rb"
     Then the exit status should be 0
-    And the output should contain "4 examples, 1 failure"
-    And the output should contain "expected to be sent :foo at most 2 times, but received it 3 times"
+    And the output should contain "2 examples, 0 failures"
 
   Scenario: declare a message expectation stubbing the return value
     Given a directory named "stendhal_project"

@@ -19,6 +19,26 @@ module Stendhal
             end
 EOT
         end
+        self
+      end
+
+      def once
+        __verifier.expectation_for(__verifier.last_mocked_method).times_expected = 1
+        self
+      end
+
+      def twice
+        __verifier.expectation_for(__verifier.last_mocked_method).times_expected = 2
+        self
+      end
+
+      def exactly(times)
+        __verifier.expectation_for(__verifier.last_mocked_method).times_expected = times
+        self
+      end
+
+      def times
+        self
       end
 
       def does_not_expect(method)
