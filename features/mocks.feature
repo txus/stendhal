@@ -26,6 +26,13 @@ Feature: Mocks (message expectations)
 
           object.bar.must eq('called foo') # The return value is not stubbed
         end
+        it "calls foo two times" do
+          object = MyClass.new
+          object.expects(:foo)
+          object.expects(:foo) # This makes two calls expected
+
+          2.times { object.bar } 
+        end
         it "never calls foo" do
           object = MyClass.new
           object.expects(:foo)
@@ -33,8 +40,8 @@ Feature: Mocks (message expectations)
       end
     """
     When I run "stendhal sample_spec.rb"
-    Then the exit status should be 0
-    And the output should contain "2 examples, 1 failure"
+    # Then the exit status should be 0
+    And the output should contain "3 examples, 1 failure"
     And the output should contain "expected to be sent :foo 1 time, but received it 0 times"
 
   Scenario: declare a negative message expectation

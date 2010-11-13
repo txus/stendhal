@@ -15,15 +15,35 @@ module Stendhal
       
         describe "#add_expectation" do
           it 'adds an expectation for a given method' do
-            MockVerifier::MessageExpectation.should_receive(:new).with(:reverse)
+            MockVerifier::MessageExpectation.should_receive(:new).with(:reverse, {})
 
             subject.add_expectation(:reverse)
+          end
+          context "if an expectation for such method already exists" do
+            it 'adds an expected call to that expectation' do
+              subject.add_expectation(:reverse)
+              MockVerifier::MessageExpectation.should_not_receive(:new)
+
+              subject.add_expectation(:reverse)
+
+              subject.should have(1).expectations
+              subject.expectations.first.times_expected.should == 2
+            end
           end
         end
 
         describe "#add_negative_expectation" do
           it 'adds a negative expectation for a given method' do
-            MockVerifier::MessageExpectation.should_receive(:new).with(:reverse, :negative => true)
+            subject.add_expectation(:reverse)
+            subject.add_expectation(:reverse)
+
+            subject.add_negative_expectation(:reverse)
+
+            subject.should have(1).expectations
+            subject.expectations.first.times_expected.should == 0
+          end
+          it 'overrides previous positive expectations on the same method' do
+            subject.should_receive(:add_expectation).with(:reverse, :negative => true)
 
             subject.add_negative_expectation(:reverse)
           end

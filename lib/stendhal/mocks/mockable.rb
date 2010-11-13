@@ -8,15 +8,17 @@ module Stendhal
         else
           __verifier.add_expectation(method) 
         end
-        metaclass = (class << self;self;end)
-        metaclass.send(:alias_method, :"__original_#{method}", method.to_sym)
-        metaclass.send(:undef_method, method.to_sym)
-        metaclass.class_eval <<EOT
-          def #{method}(*args, &block)
-            @__verifier.fulfill_expectation(:#{method},*args,&block)
-            __original_#{method}(*args,&block)
-          end
+        unless respond_to?(:"__original_#{method}")
+          metaclass = (class << self;self;end)
+          metaclass.send(:alias_method, :"__original_#{method}", method.to_sym)
+          metaclass.send(:undef_method, method.to_sym)
+          metaclass.class_eval <<EOT
+            def #{method}(*args, &block)
+              @__verifier.fulfill_expectation(:#{method},*args,&block)
+              __original_#{method}(*args,&block)
+            end
 EOT
+        end
       end
 
       def does_not_expect(method)

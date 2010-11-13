@@ -12,12 +12,17 @@ module Stendhal
         @@verifiers << self
       end
 
-      def add_expectation(method)
-        @expectations << MessageExpectation.new(method)
+      def add_expectation(method, options = {})
+        @expectations.detect {|e| e.method == method }.tap do |expectation|
+          expectation and begin
+            options[:negative] ? expectation.times_expected = 0 :
+                                 expectation.times_expected += 1
+          end
+        end || @expectations << MessageExpectation.new(method, options)
       end
 
       def add_negative_expectation(method)
-        @expectations << MessageExpectation.new(method, :negative => true)
+        add_expectation(method, :negative => true)
       end
 
       def fulfill_expectation(method)
@@ -49,7 +54,7 @@ module Stendhal
       class MessageExpectation
         attr_reader :method
         attr_reader :times_called
-        attr_reader :times_expected
+        attr_accessor :times_expected
 
         def initialize(method, options = {})
           @method = method
@@ -58,6 +63,7 @@ module Stendhal
         end
 
         def register_call
+          puts "#{@times_called}"
           @times_called += 1
         end
 
