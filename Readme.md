@@ -2,6 +2,8 @@
 
 A small test framework developed as a personal kata to improve my ruby.
 
+Tested with Ruby 1.8.7, 1.9.2, JRuby 1.5.3 and Rubinius 1.1.
+
 Currently under development, there is only basic functionality for now.
 Below I will be posting whatever features are available throughout the
 development.
