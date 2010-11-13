@@ -12,7 +12,8 @@ module Stendhal
         else
           options = {:pending => true}
         end
-        self.add_example Stendhal::Example.new(*args,options,&blk)
+        args << options
+        self.add_example Stendhal::Example.new(*args, &blk)
       end
     end
 
