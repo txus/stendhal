@@ -15,6 +15,7 @@ development.
 * Mocks (message expectations) with _optionally_ stubbable return values
 * Nested example groups (declare them with either describe or context)
 * Pending examples
+* A rake task to run the specs
 * Matchers (use with object.must or object.must_not)
 
     eq() / eql()
@@ -29,6 +30,19 @@ development.
     gem install stendhal
 
 ##Usage
+
+In your Gemfile:
+
+    gem 'stendhal'
+
+If you want the :spec task, in your Rakefile:
+
+    require 'stendhal'
+    Stendhal::RakeTask.new
+
+    task :default => :spec
+
+##Syntax
 
     # your spec file for some class - foo_spec.rb
 
