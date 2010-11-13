@@ -1,3 +1,4 @@
+require 'stendhal/rake_task'
 require 'stendhal/reporter'
 require 'stendhal/exceptions'
 require 'stendhal/matchers'
