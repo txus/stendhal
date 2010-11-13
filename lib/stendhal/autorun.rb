@@ -1,7 +1,13 @@
 
 
-ARGV.each do |file|
-  require File.join('.',file)
+unless ARGV.empty?
+  ARGV.each do |file|
+    require File.join('.',file)
+  end
+else
+  Dir['spec/**/*_spec.rb'].entries.each do |entry|
+    require File.join('.', entry) 
+  end
 end
 
 examples, failures, pending = Stendhal::ExampleGroup.run_all
