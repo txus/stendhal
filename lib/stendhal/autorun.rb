@@ -1,11 +1,17 @@
 
+Dir['stendhal_spec/spec_helper.rb'].entries.each do |entry|
+  require File.join('.', entry) 
+end
 
 unless ARGV.empty?
   ARGV.each do |file|
     require File.join('.',file)
   end
 else
-  Dir['spec/**/*_spec.rb'].entries.each do |entry|
+  # Dir['spec/**/*_spec.rb'].entries.each do |entry|
+  #   require File.join('.', entry) 
+  # end
+  Dir['stendhal_spec/**/*_spec.rb'].entries.each do |entry|
     require File.join('.', entry) 
   end
 end
