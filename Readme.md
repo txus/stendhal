@@ -11,7 +11,7 @@ development.
 ##Current features
 
 * Pretty decent reporter with colors
-* Test doubles and stubs (no partial stubbing yet)
+* Test doubles and stubs (also partial stubbing!)
 * Mocks (message expectations) with _optionally_ stubbable return values
 * Nested example groups (declare them with either describe or context)
 * Pending examples
@@ -88,6 +88,22 @@ development.
         end
       end
 
+      describe "Partial stubbing" do
+        it "returns nil by default" do
+          string = "my string"
+          string.stubs(:some_method)
+
+          string.some_method # => nil
+        end
+
+        it "returns a value if you tell it to" do
+          string = "my string"
+          string.stubs(:some_method) { 'some value' }
+
+          string.some_method # => "some value"
+        end
+      end
+
       describe "Message expectation" do
         it "is declared with expects" do
           string = "my string"
@@ -156,6 +172,10 @@ development.
       * is declared with fake
       * is declared with double as well
       * can be given stubs
+    
+    Partial stubbing
+      * returns nil by default
+      * returns a value if you tell it to
 
     Message expectation
       * is declared with expects
@@ -164,7 +184,7 @@ development.
       * can return a stubbed proc
       * is declared with does_not_expect in case it is negative [FAILED]
 
-    16 examples, 4 failures, 2 pending
+    18 examples, 4 failures, 2 pending
 
 ##Feedback
 

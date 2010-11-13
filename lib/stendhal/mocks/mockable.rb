@@ -48,7 +48,6 @@ EOT
       def and_returns(retval = nil, &block)
         raise "This object has no mocks." unless @__verifier
         method = __verifier.last_mocked_method
-        str = retval.to_s
         unless respond_to?(:"__unstubbed_#{method}")
           metaclass = (class << self;self;end)
           metaclass.send(:alias_method, :"__unstubbed_#{method}", :"__original_#{method}")

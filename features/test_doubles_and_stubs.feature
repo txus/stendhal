@@ -61,3 +61,41 @@ Feature: Test doubles and stubs
     When I run "stendhal sample_spec.rb"
     Then the exit status should be 0
     And the output should contain "1 example, 0 failures"
+
+  Scenario: partial stubbing
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
+    Given a file named "sample_spec.rb" with:
+    """
+      class MyClass
+        def initialize
+        end
+        def do_something
+          "some result"
+        end
+      end
+
+      describe "something" do
+        it "stubs an existing method" do
+          object = MyClass.new
+
+          object.stubs(:do_something)
+          object.do_something.must be_nil
+        end
+        it "stubs an existing method with a return value" do
+          object = MyClass.new
+
+          object.stubs(:do_something) { "another result" }
+          object.do_something.must eq('another result')
+        end
+        it "stubs an unexisting method" do
+          object = MyClass.new
+
+          object.stubs(:invented_method) { "invented result" }
+          object.invented_method.must eq("invented result")
+        end
+      end
+    """
+    When I run "stendhal sample_spec.rb"
+    Then the exit status should be 0
+    And the output should contain "3 examples, 0 failures"
