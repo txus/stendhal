@@ -5,7 +5,19 @@ require 'rubygems'
 
 require 'simplecov'
 SimpleCov.start do
-  add_group "Lib", 'lib'
+  add_group "Root lib" do |src_file|
+    src_file.filename =~ /lib\/(\w)+\.rb$/ || (src_file.filename =~ /lib\/stendhal\/(\w)+\.rb$/ && !(src_file.filename =~ /matchers|mocks/))
+  end
+  add_group "Matchers" do |src_file|
+    src_file.filename =~ /lib\/stendhal\/matchers\.rb/ || src_file.filename =~ /lib\/stendhal\/matchers\/(\w)+\.rb$/
+  end
+  add_group "Mocks" do |src_file|
+    src_file.filename =~ /lib\/stendhal\/mocks\.rb/ || src_file.filename =~ /lib\/stendhal\/mocks\/(\w)+\.rb$/
+  end
+  add_group "Core extensions" do |src_file|
+    src_file.filename =~ /lib\/stendhal\/core_ext\/(\w)+\.rb$/
+  end
+  add_filter '/spec/'
 end
 
 require 'stendhal'
