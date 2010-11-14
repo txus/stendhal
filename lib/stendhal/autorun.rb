@@ -1,8 +1,15 @@
 
+ 
 
 unless ARGV.empty?
   ARGV.each do |file|
-    require File.join('.',file)
+    if Dir["#{file}/*"].empty?
+      require File.join('.',file)
+    else
+      Dir["#{file}/**/*_spec.rb"].entries.each do |entry|
+        require File.join('.', entry) 
+      end
+    end
   end
 else
   Dir['spec/**/*_spec.rb'].entries.each do |entry|
