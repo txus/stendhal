@@ -5,10 +5,10 @@ module Stendhal
       describe "#match" do
         it 'passes when original and target objects are equivalent' do
           matcher = Equality.new("string")
-          matcher.match("string").must eq(true)
+          matcher.match("string").must be_true
         end
 
-        it 'fails when original and target objects are unequivalent' do
+        pending 'fails when original and target objects are unequivalent' do
           matcher = Equality.new("string")
           expected_message = %q{expected "other string" to equal "string"}
           expect {
@@ -20,10 +20,10 @@ module Stendhal
 
           it 'passes when found unequivalence' do
             matcher = Equality.new("string")
-            matcher.match("other string", :negative => true).should be_true
+            matcher.match("other string", :negative => true).must be_true
           end
 
-          it 'fails otherwise' do
+          pending 'fails otherwise' do
             matcher = Equality.new("string")
             expected_message = %q{expected "string" to be different than "string"}
             expect {
