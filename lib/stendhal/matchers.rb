@@ -2,6 +2,7 @@ require 'stendhal/matchers/abstract_matcher'
 require 'stendhal/matchers/equality'
 require 'stendhal/matchers/kind'
 require 'stendhal/matchers/predicate'
+require 'stendhal/matchers/inclusion'
 
 module Stendhal
   module Matchers
@@ -15,6 +16,10 @@ module Stendhal
     end
     alias_method :be_kind_of, :be_a
     alias_method :be_a_kind_of, :be_a
+
+    def include(member)
+      Inclusion.new(member)
+    end
 
     def method_missing(m,*args)
       if m.to_s =~ /be_(\w+)/

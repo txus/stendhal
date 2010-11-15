@@ -117,3 +117,40 @@ Feature: Expectations
     Then the exit status should be 0
     And the output should contain "expected {:number=>3} not to be frozen"
     And the output should contain "1 example, 1 failure"
+
+  Scenario: inclusion expectations
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
+    Given a file named "sample_spec.rb" with:
+    """
+      describe "something" do
+        it "does something" do
+
+          str = [1,2,3]
+          str.must include(2)
+
+        end
+      end
+    """
+    When I run "stendhal sample_spec.rb"
+    Then the exit status should be 0
+    And the output should contain "1 example, 0 failures"
+
+  Scenario: failed inclusion expectations
+    Given a directory named "stendhal_project"
+    When I cd to "stendhal_project"
+    Given a file named "sample_spec.rb" with:
+    """
+      describe "something" do
+        it "does something" do
+
+          hash = [1,2,3]
+          hash.must_not include(1)
+
+        end
+      end
+    """
+    When I run "stendhal sample_spec.rb"
+    Then the exit status should be 0
+    And the output should contain "expected [1, 2, 3] not to include 1"
+    And the output should contain "1 example, 1 failure"
