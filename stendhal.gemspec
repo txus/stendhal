@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-rspec"
+  s.add_development_dependency "guard-stendhal"
   s.add_development_dependency "growl"
 
   s.files         = `git ls-files`.split("\n")
