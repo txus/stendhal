@@ -2,7 +2,7 @@ module Stendhal
   module Matchers
     class RaiseError < AbstractMatcher
 
-      def initialize(exception_class, message = nil)
+      def initialize(exception_class = Exception, message = nil)
         if exception_class.new.is_a?(Exception)
           @target = exception_class.new(message.to_s)
           @message_given = !!message

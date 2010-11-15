@@ -155,7 +155,7 @@ module Stendhal
         end
       
         describe "#verify" do
-          it 'registers a call for the given expectation' do
+          it 'verifies if times_called equals times_expected' do
             subject.stub(:times_called).and_return 2
             subject.stub(:times_expected).and_return 1
 

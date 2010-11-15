@@ -24,32 +24,32 @@ module Stendhal
         example.run
       end
 
-      pending "captures unmet expectations" do
+      it "captures unmet expectations" do
         example = Example.new("docstring") do
           raise Stendhal::Exceptions::ExpectationNotMet.new("expected this example to be awesome")
         end
-        # expect {example.run}.to_not raise_error
+        lambda {example.run}.must_not raise_error
         example.run
-        example.should be_failed
-        example.failed_message.should eq("expected this example to be awesome")
+        example.must be_failed
+        example.failed_message.must eq("expected this example to be awesome")
       end
 
-      pending "captures exceptions" do
+      it "captures exceptions" do
         example = Example.new("docstring") do
           raise "error"
         end
-        # expect {example.run}.to_not raise_error
+        lambda {example.run}.must_not raise_error
         example.run
-        example.should be_aborted
+        example.must be_aborted
       end
 
-      pending "captures everything else" do
+      it "captures everything else" do
         example = Example.new("docstring") do
           hello my dear reader
         end
-        # expect {example.run}.to_not raise_error
+        lambda {example.run}.must_not raise_error
         example.run
-        example.should be_aborted
+        example.must be_aborted
       end
 
       it "verifies all message expectations after running the block" do

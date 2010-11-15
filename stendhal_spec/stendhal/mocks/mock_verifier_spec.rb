@@ -168,13 +168,15 @@ module Stendhal
         end
       
         describe "#verify" do
-          pending 'registers a call for the given expectation' do
-            subject.stub(:times_called).and_return 2
-            subject.stub(:times_expected).and_return 1
+          it 'verifies if times_called equal times_expected' do
+            subject = MockVerifier::MessageExpectation.new(:length)
 
-            expect {
+            subject.stubs(:times_called) { 2 }
+            subject.stubs(:times_expected) { 1 }
+
+            lambda {
               subject.verify
-            }.to raise_error(Stendhal::Exceptions::ExpectationNotMet, "expected to be sent :length 1 time, but received it 2 times")
+            }.must raise_error(Stendhal::Exceptions::ExpectationNotMet, "expected to be sent :length 1 time, but received it 2 times")
           end
         end
       

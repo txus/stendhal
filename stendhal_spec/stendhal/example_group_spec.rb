@@ -13,13 +13,13 @@ module Stendhal
       group.description.must eq("docstring")
     end
 
-    pending "allows example declaration inside the block" do
-      expect {
+    it "allows example declaration inside the block" do
+      lambda {
         ExampleGroup.new("docstring") do
           it "does something" do
           end
         end
-      }.to_not raise_error
+      }.must_not raise_error
     end
 
     describe "#add_example" do
@@ -77,6 +77,9 @@ module Stendhal
         @pending_example.does_not_expect(:run)
 
         @group.run
+
+        ExampleGroup.destroy_all
+        Example.destroy_all
       end
 
       it "runs all its children" do
@@ -101,6 +104,9 @@ module Stendhal
           g.expects(:run)
         end
         @group.run
+
+        ExampleGroup.destroy_all
+        Example.destroy_all
       end
 
       it "returns an array with total examples, failures and pendings" do
@@ -122,6 +128,9 @@ module Stendhal
         @group.add_example_group("another group")
 
         @group.run.must eq([6,1,1])
+
+        ExampleGroup.destroy_all
+        Example.destroy_all
       end
     end    
 
@@ -130,6 +139,9 @@ module Stendhal
         example_group = ExampleGroup.new("group")
         example_group.add_example_group(ExampleGroup.new("other group"))
         example_group.example_groups.first.has_parent?.must eq(true)
+
+        ExampleGroup.destroy_all
+        Example.destroy_all
       end
     end
 
@@ -141,6 +153,9 @@ module Stendhal
 
           ExampleGroup.new("group")
           ExampleGroup.count.must eq(1)
+
+          ExampleGroup.destroy_all
+          Example.destroy_all
         end
       end
       describe "#run_all" do
@@ -154,6 +169,9 @@ module Stendhal
           group2.stubs(:run) { [1,0,1] }
 
           ExampleGroup.run_all.must eq([2,2,4])
+
+          ExampleGroup.destroy_all
+          Example.destroy_all
         end
       end
     end

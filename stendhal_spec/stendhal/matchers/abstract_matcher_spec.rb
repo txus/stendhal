@@ -7,11 +7,6 @@ module Stendhal
         matcher.target.must eq("target")
       end
 
-      pending 'does not implement #match' do
-        matcher = AbstractMatcher.new("target")    
-        # expect { matcher.match("whatever") }.to raise_error(NotImplementedError)
-      end
-
     end
   end
 end

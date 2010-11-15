@@ -17,13 +17,14 @@ module Stendhal
     end
     alias_method :be_kind_of, :be_a
     alias_method :be_a_kind_of, :be_a
+    alias_method :be_an, :be_a
 
     def include(member)
       Inclusion.new(member)
     end
 
-    def raise_error(exception_class, message)
-      RaiseError.new(exception_class, message)
+    def raise_error(*args)
+      RaiseError.new(*args)
     end
 
     def method_missing(m,*args)
