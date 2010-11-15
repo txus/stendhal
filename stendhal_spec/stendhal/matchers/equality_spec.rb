@@ -10,7 +10,7 @@ module Stendhal
 
         pending 'fails when original and target objects are unequivalent' do
           matcher = Equality.new("string")
-          expected_message = %q{expected "other string" to equal "string"}
+          expected_message = %q{expected "string", got "other string"}
           expect {
             matcher.match("other string")
           }.to raise_error(Stendhal::Exceptions::ExpectationNotMet, expected_message)
@@ -25,7 +25,7 @@ module Stendhal
 
           pending 'fails otherwise' do
             matcher = Equality.new("string")
-            expected_message = %q{expected "string" to be different than "string"}
+            expected_message = %q{expected something different than "string", got "string"}
             expect {
               matcher.match("string", :negative => true)
             }.to raise_error(Stendhal::Exceptions::ExpectationNotMet, expected_message)
