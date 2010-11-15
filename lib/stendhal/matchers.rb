@@ -3,6 +3,7 @@ require 'stendhal/matchers/equality'
 require 'stendhal/matchers/kind'
 require 'stendhal/matchers/predicate'
 require 'stendhal/matchers/inclusion'
+require 'stendhal/matchers/raise_error'
 
 module Stendhal
   module Matchers
@@ -19,6 +20,10 @@ module Stendhal
 
     def include(member)
       Inclusion.new(member)
+    end
+
+    def raise_error(exception_class, message)
+      RaiseError.new(exception_class, message)
     end
 
     def method_missing(m,*args)
